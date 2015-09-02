@@ -1,4 +1,5 @@
 <?php
+
 namespace thom855j\filesystem;
 
 class Upload
@@ -6,92 +7,62 @@ class Upload
 
     // object instance
     private static
-            $_instance = null ;
+            $_instance = null;
     private
-            $_storage ,
-            $_errors          = array() ,
-            $_renames         = array() ,
-            $_size            = 8192000 ,
-            $_formats         = array( "jpg" , "png" , "gif" , "zip" , "bmp" ) ;
+            $_storage,
+            $_renames         = array();
 
     public
-            function __construct( $storage )
+            function __construct($storage)
     {
-        $this->_storage = $storage ;
+        $this->_storage = $storage;
     }
 
     public static
-            function load( $storage )
+            function load($storage)
     {
-        if ( !isset( self::$_instance ) )
+        if (!isset(self::$_instance))
         {
-            self::$_instance = new Upload( $storage ) ;
+            self::$_instance = new Upload($storage);
         }
-        return self::$_instance ;
-    }
-    
-    public 
-          function setMaxSize($size)
-    {
-      $this->_size = $size;
-    }
-    
-    public 
-          function setAllowedFormats($formats = array())
-    {
-      $this->_formats = $formats;
+        return self::$_instance;
     }
 
     public
-            function file( $filename )
+            function file($filename)
     {
-        $count = 0 ;
+        $count = 0;
 
-        if ( isset( $_POST ) and $_SERVER[ 'REQUEST_METHOD' ] == "POST" )
+        if (isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
         {
             // Loop $_FILES to exeicute all files
-            foreach ( $_FILES[ $filename ][ 'name' ] as $f => $name )
+            foreach ($_FILES[$filename]['name'] as $f => $name)
             {
-                if ( $_FILES[ $filename ][ 'error' ][ $f ] == 4 )
+                if ($_FILES[$filename]['error'][$f] == 4)
                 {
-                    continue ; // Skip file if any error found
+                    continue; // Skip file if any error found
                 }
-                if ( $_FILES[ $filename ][ 'error' ][ $f ] == 0 )
+                if ($_FILES[$filename]['error'][$f] == 0)
                 {
-                    if ( $_FILES[ $filename ][ 'size' ][ $f ] > $this->_size )
+                    // No error found! Move uploaded files 
+                    $ext = str_replace('image/', '.', $_FILES[$filename]["type"][$f]);
+                    //check jpeg
+                    if (strpos($name, '.jpeg'))
                     {
-                        $this->addError( "$name is too large!." ) ;
-                        continue ; // Skip large files
-                    }
-                    elseif ( !in_array( pathinfo( $name , PATHINFO_EXTENSION ) ,
-                                                  $this->_formats ) )
-                    {
-                        $this->addError( "$name is not a valid format" ) ;
-                        continue ; // Skip invalid file formats
+                        $ext = '.jpeg';
                     }
                     else
-                    { // No error found! Move uploaded files 
-                        $ext = str_replace( 'image/' , '.' ,
-                                            $_FILES[ $filename ][ "type" ][ $f ] ) ;
-                        //check jpeg
-                        if ( strpos( $name , '.jpeg' ) )
-                        {
-                            $ext = '.jpeg' ;
-                        }
-                        else
-                        {
-                            $ext = '.jpg' ;
-                        }
-
-                        $file = str_replace( $ext , '' , $name ) ;
-
-                        $rename = $this->slug( $file ) . $ext ;
-                        $this->addRename( $rename ) ;
-
-                        if ( move_uploaded_file( $_FILES[ $filename ][ "tmp_name" ][ $f ] ,
-                                                 $this->_storage . $rename ) )  ;
-                        $count++ ; // Number of successfully uploaded file
+                    {
+                        $ext = '.jpg';
                     }
+
+                    $file = str_replace($ext, '', $name);
+
+                    $rename = $this->slug($file) . $ext;
+                    $this->addRename($rename);
+
+                    move_uploaded_file($_FILES[$filename]["tmp_name"][$f], $this->_storage . $rename);
+                    $count++; // Number of successfully uploaded file
                 }
             }
         }
@@ -101,65 +72,53 @@ class Upload
             function clear()
     {
 
-        $source = $this->_storage ; // Directory to save files in (keep outside web root)  
-        if ( $handle = opendir( $source ) )
+        $source = $this->_storage; // Directory to save files in (keep outside web root)  
+        if ($handle = opendir($source))
         {
-            while ( false !== ($file = readdir( $handle )) )
+            while (false !== ($file = readdir($handle)))
             {
-                if ( $file != '.' and $file != '..' )
+                if ($file != '.' and $file != '..')
                 {
-                    unlink( $source . $file ) ;
+                    unlink($source . $file);
                 }
             }
-            closedir( $handle ) ;
+            closedir($handle);
         }
     }
 
     public
-            function slug( $string )
+            function slug($string)
     {
-        $str1   = array( "Ã†" , "Ã˜" , "Ã…" , "Ã¦" , "Ã¸" , "Ã¥" ) ;
-        $str2   = array( "AE" , "OE" , "AA" , "ae" , "oe" , "aa" ) ;
-        $string = str_replace( $str1 , $str2 , $string ) ;
-        $slug   = preg_replace( '/[^A-Za-z0-9-]+/' , '-' , $string ) ;
-        return $slug ;
+        $str1   = array("Ã†", "Ã˜", "Ã…", "Ã¦", "Ã¸", "Ã¥");
+        $str2   = array("AE", "OE", "AA", "ae", "oe", "aa");
+        $string = str_replace($str1, $str2, $string);
+        $slug   = preg_replace('/[^A-Za-z0-9-]+/', '-', $string);
+        return $slug;
     }
 
     public
-            function remove( $name , $storage = null )
+            function remove($name, $storage = null)
     {
-        if ( empty( $storage ) )
+        if (empty($storage))
         {
-            unlink( $this->_storage . $name ) ;
+            unlink($this->_storage . $name);
         }
         else
         {
-            unlink( $storage . $name ) ;
+            unlink($storage . $name);
         }
     }
 
     private
-            function addError( $errors )
+            function addRename($name)
     {
-        $this->_errors[] = $errors ;
-    }
-
-    private
-            function addRename( $name )
-    {
-        $this->_renames[] = $name ;
+        $this->_renames[] = $name;
     }
 
     public
             function renames()
     {
-        return $this->_renames ;
-    }
-
-    public
-            function errors()
-    {
-        return $this->_errors ;
+        return $this->_renames;
     }
 
 }
