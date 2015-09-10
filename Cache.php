@@ -1,12 +1,7 @@
 <?php 
 
-namespace thom855j\php_filesystem; 
+namespace thom855j\PHPFilesystem; 
 
-/** 
- * Description of Cache 
- * 
- * @author ThomasElvin 
- */ 
 class Cache { 
 
     public static function start() { 
