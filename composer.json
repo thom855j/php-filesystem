@@ -1,0 +1,8 @@
+{
+        "name": "thom855j/php-http",
+        "license": "MIT",
+        "description": "Simple, useful classes for working with the server filesystem",
+        "require": {
+        "php": ">=5.4.0"
+        }
+}
