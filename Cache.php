@@ -1,5 +1,6 @@
 <?php 
-namespace thom855j\filesystem;
+
+namespace thom855j\php_filesystem; 
 
 /** 
  * Description of Cache 
