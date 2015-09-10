@@ -4,5 +4,10 @@
         "description": "Simple, useful classes for working with the server filesystem",
         "require": {
         "php": ">=5.4.0"
+        },
+    "autoload": {
+        "psr-4": {
+            "thom855j\\php_filesystem\\": "src/"
+            }
         }
 }
