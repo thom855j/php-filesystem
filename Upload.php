@@ -1,6 +1,6 @@
 <?php
 
-namespace thom855j\php_filesystem; 
+namespace thom855j\PHPFilesystem; 
 
 class Upload
 {
