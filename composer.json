@@ -1,5 +1,5 @@
 {
-        "name": "thom855j/php-http",
+        "name": "thom855j/php-filesystem",
         "license": "MIT",
         "description": "Simple, useful classes for working with the server filesystem",
         "require": {
