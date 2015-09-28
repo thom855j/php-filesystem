@@ -1,5 +1,5 @@
 <?php
-namespace thom855j\PHPFilesystem;
+namespace WebSupportDK\PHPFilesystem;
 
 class Image
 {
