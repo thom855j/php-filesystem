@@ -9,8 +9,9 @@ use WebSupportDK\PHPHttp\Url;
 class Cache
 {
 
+	public $url;
 	protected $_dir, $_time, $_ext, $_ignoreList;
-	private $_url, $_file;
+	private $_page, $_file;
 
 	/**
 	 * Directory to cache files in (keep outside web root) 
@@ -47,6 +48,14 @@ class Cache
 	}
 
 	/**
+	 * Set the public, current url
+	 */
+	public function setUrl($current_url)
+	{
+		$this->url = $current_url;
+	}
+
+	/**
 	 * Start caching BEFORE script
 	 */
 	public function start()
@@ -54,11 +63,11 @@ class Cache
 		if (!isset($this->_dir)) {
 			return FALSE;
 		}
-		$this->_url = Url::get(); // Requested page 
-		$this->_file = $this->_dir . md5($this->_url) . '.' . $this->_ext; // Cache file to either load or create 
+		$this->_page = $this->url; // Requested page 
+		$this->_file = $this->_dir . md5($this->_page) . '.' . $this->_ext; // Cache file to either load or create 
 		$ignore_page = false;
 		for ($i = 0; $i < count($this->_ignoreList); $i++) {
-			$ignore_page = (strpos($this->_url, $this->_ignoreList[$i]) !== false) ? true : $ignore_page;
+			$ignore_page = (strpos($this->_page, $this->_ignoreList[$i]) !== false) ? true : $ignore_page;
 		}
 		$cachefile_created = ((file_exists($this->_file)) and ( $ignore_page === false)) ? filemtime($this->_file) : 0;
 		clearstatcache();
@@ -94,7 +103,7 @@ class Cache
 		ob_end_flush();
 	}
 
-	public  function clear()
+	public function clear()
 	{
 
 		if ($handle = opendir($this->_dir)) {

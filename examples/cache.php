@@ -8,6 +8,7 @@ $cache = new Cache();
 $cache->setDir('cache');
 $cache->setTime(1800);
 $cache->setExt('html');
+$cache->setUrl('http://localhost');
 
 $cache->start();
 
