@@ -109,13 +109,13 @@ class Cache
 		if ($handle = opendir($this->_dir)) {
 			while (false !== ($file = readdir($handle))) {
 				if ($file != '.' and $file != '..') {
-					//echo $file . ' deleted.<br>'; 
+					echo $file . ' deleted.<br>'; 
 					unlink($this->_dir . '/' . $file);
 				}
 			}
 			closedir($handle);
 		}
-
+		// optional curl
 		//curl http://www.your_domain.com/empty_caching.php >/dev/null 2>&1 
 	}
 }
