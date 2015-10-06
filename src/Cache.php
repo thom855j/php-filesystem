@@ -4,8 +4,6 @@
  */
 namespace WebSupportDK\PHPFilesystem;
 
-use WebSupportDK\PHPHttp\Url;
-
 class Cache
 {
 
