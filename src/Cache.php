@@ -2,7 +2,7 @@
 /**
  * Cache system
  */
-namespace WebSupportDK\PHPFilesystem;
+namespace Datalaere\PHPFilesystem;
 
 class Cache
 {
@@ -16,7 +16,6 @@ class Cache
 	 */
 	public function setDir($directory)
 	{
-
 		$this->_dir = $directory;
 	}
 
@@ -25,7 +24,6 @@ class Cache
 	 */
 	public function setTime($time)
 	{
-
 		$this->_time = $time;
 	}
 
@@ -61,13 +59,17 @@ class Cache
 		if (!isset($this->_dir)) {
 			return FALSE;
 		}
+
 		$this->_page = $this->url; // Requested page 
 		$this->_file = $this->_dir . md5($this->_page) . '.' . $this->_ext; // Cache file to either load or create 
+		
 		$ignore_page = false;
+
 		for ($i = 0; $i < count($this->_ignoreList); $i++) {
 			$ignore_page = (strpos($this->_page, $this->_ignoreList[$i]) !== false) ? true : $ignore_page;
 		}
-		$cachefile_created = ((file_exists($this->_file)) and ( $ignore_page === false)) ? filemtime($this->_file) : 0;
+
+		$cachefile_created = (file_exists($this->_file) && ( $ignore_page === false)) ? filemtime($this->_file) : 0;
 		clearstatcache();
 
 		// Show file from cache if still valid 

@@ -2,7 +2,7 @@
 
 require_once '../src/Cache.php';
 
-use WebSupportDK\PHPFilesystem\Cache;
+use Datalaere\PHPFilesystem\Cache;
 
 $cache = new Cache();
 $cache->setDir('cache/');

@@ -1,5 +1,5 @@
 {
-	"name": "websupport-dk/php-filesystem",
+	"name": "datalaere/php-filesystem",
 	"license": "MIT",
 	"description": "Simple, useful classes for working with the server filesystem",
 	"require": {
@@ -7,7 +7,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"WebSupportDK\\PHPFilesystem\\": "src/"
+			"Datalaere\\PHPFilesystem\\": "src/"
 		}
 	}
 }

@@ -1,19 +1,17 @@
 <?php 
-namespace WebSupportDK\PHPFilesystem; 
+namespace Datalaere\PHPFilesystem; 
 
 class File 
 { 
 
-    public static 
-            function inc( $path ) 
+    public static function inc($path) 
     { 
-        include_once $path . '.php' ; 
+        include_once $path . '.php'; 
     } 
 
-    public static 
-            function req( $path ) 
+    public static function req($path) 
     { 
-        require_once $path . '.php' ; 
+        require_once $path . '.php'; 
     } 
 
 } 
