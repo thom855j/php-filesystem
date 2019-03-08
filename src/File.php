@@ -1,17 +1,16 @@
-<?php 
-namespace Datalaere\PHPFilesystem; 
+<?php
 
-class File 
-{ 
+namespace Datalaere\PHPFilesystem;
 
-    public static function inc($path) 
-    { 
-        include_once $path . '.php'; 
-    } 
+class File
+{
+    public static function inc($path)
+    {
+        include_once $path . '.php';
+    }
 
-    public static function req($path) 
-    { 
-        require_once $path . '.php'; 
-    } 
-
-} 
+    public static function req($path)
+    {
+        require_once $path . '.php';
+    }
+}

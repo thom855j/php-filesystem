@@ -1,12 +1,11 @@
 <?php
 
-namespace Datalaere\PHPFilesystem; 
+namespace Datalaere\PHPFilesystem;
 
 class Zip
 {
-    private
-            $_files = array(),
-            $_zip;
+    private $_files = array();
+    private $_zip;
 
     public function __construct()
     {
@@ -31,14 +30,13 @@ class Zip
                 }
             }
 
-        if ($this->_zip->open($location, file_exists($location) ? ZipArchive::OVERWRITE : ZipArchive::CREATE)) {
-            foreach ($this->_files as $file) {
-                $this->_zip->addFile($file, $file);
-            }
+            if ($this->_zip->open($location, file_exists($location) ? ZipArchive::OVERWRITE : ZipArchive::CREATE)) {
+                foreach ($this->_files as $file) {
+                    $this->_zip->addFile($file, $file);
+                }
 
-            $this->_zip->close();
+                $this->_zip->close();
             }
         }
     }
-
 }

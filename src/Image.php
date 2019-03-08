@@ -1,19 +1,18 @@
 <?php
+
 namespace Datalaere\PHPFilesystem;
 
 class Image
 {
     // object instance
-    protected static
-            $_instance = null;
+    protected static $_instance = null;
 
-    private
-            $image,
-            $type;
+    private $image;
+    private $type;
 
     public static function load()
     {
-        if (!isset( self::$_instance )) {
+        if (!isset(self::$_instance)) {
             self::$_instance = new Image();
         }
 
@@ -22,15 +21,15 @@ class Image
 
     public function open($filename)
     {
-        $image_info = getimagesize( $filename);
+        $image_info = getimagesize($filename);
         $this->type = $image_info[ 2 ];
 
         if ($this->type == IMAGETYPE_JPEG) {
             $this->image = imagecreatefromjpeg($filename);
         } elseif ($this->type == IMAGETYPE_GIF) {
             $this->image = imagecreatefromgif($filename);
-        } elseif ( $this->type == IMAGETYPE_PNG ) {
-            $this->image = imagecreatefrompng( $filename );
+        } elseif ($this->type == IMAGETYPE_PNG) {
+            $this->image = imagecreatefrompng($filename);
         }
     }
 
@@ -41,8 +40,9 @@ class Image
         } elseif ($type == IMAGETYPE_GIF) {
             imagegif($this->image, $filename);
         } elseif ($type == IMAGETYPE_PNG) {
-            imagepng( $this->image, $filename);
-        } if ($permissions != null) {
+            imagepng($this->image, $filename);
+        }
+        if ($permissions != null) {
             chmod($filename, $permissions);
         }
     }
@@ -52,7 +52,7 @@ class Image
         if ($type == IMAGETYPE_JPEG) {
             imagejpeg($this->image);
         } elseif ($type == IMAGETYPE_GIF) {
-            imagegif( $this->image );
+            imagegif($this->image);
         } elseif ($type == IMAGETYPE_PNG) {
             imagepng($this->image);
         }
@@ -81,7 +81,7 @@ class Image
         $ratio  = $width / $this->getWidth();
         $height = $this->getheight() * $ratio;
 
-        $this->resize( $width, $height );
+        $this->resize($width, $height);
     }
 
     public function scale($scale)
@@ -89,7 +89,7 @@ class Image
         $width  = $this->getWidth() * $scale / 100;
         $height = $this->getheight() * $scale / 100;
 
-        $this->resize( $width, $height );
+        $this->resize($width, $height);
     }
 
     public function resize($width, $height)
@@ -101,11 +101,11 @@ class Image
             if ($current_transparent != -1) {
                 $transparent_color   = imagecolorsforindex($this->image, $current_transparent);
 
-                $current_transparent = imagecolorallocate( 
-                                                            $new_image,
-                                                            $transparent_color['red'],
-                                                            $transparent_color['green'],
-                                                            $transparent_color['blue'] 
+                $current_transparent = imagecolorallocate(
+                    $new_image,
+                    $transparent_color['red'],
+                    $transparent_color['green'],
+                    $transparent_color['blue']
                                                         );
 
                 imagefill($new_image, 0, 0, $current_transparent);
@@ -119,16 +119,18 @@ class Image
         }
 
         imagecopyresampled(
-            $new_image, 
-            $this->image, 
-            0, 0, 0, 0, 
+            $new_image,
+            $this->image,
+            0,
+            0,
+            0,
+            0,
             $width,
-            $height, 
-            $this->getWidth(), 
-            $this->getHeight() 
+            $height,
+            $this->getWidth(),
+            $this->getHeight()
         );
         
         $this->image = $new_image;
     }
-
 }

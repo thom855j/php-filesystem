@@ -1,17 +1,15 @@
 <?php
 
-namespace Datalaere\PHPFilesystem; 
+namespace Datalaere\PHPFilesystem;
 
 class Upload
 {
 
     // object instance
-    private static
-            $_instance = null;
+    private static $_instance = null;
 
-    private
-            $_storage,
-            $_renames         = array();
+    private $_storage;
+    private $_renames = array();
 
     public function __construct($storage)
     {
@@ -41,7 +39,7 @@ class Upload
 
                 if ($_FILES[$filename]['error'][$f] == 0) {
 
-                    // No error found! Move uploaded files 
+                    // No error found! Move uploaded files
                     $ext = str_replace('image/', '.', $_FILES[$filename]["type"][$f]);
 
                     //check jpeg
@@ -64,8 +62,7 @@ class Upload
 
     public function clear()
     {
-
-        $source = $this->_storage; // Directory to save files in (keep outside web root)  
+        $source = $this->_storage; // Directory to save files in (keep outside web root)
 
         if ($handle = opendir($source)) {
             while (false !== ($file = readdir($handle))) {
@@ -105,5 +102,4 @@ class Upload
     {
         return $this->_renames;
     }
-
 }
