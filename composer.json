@@ -1,7 +1,10 @@
 {
 	"name": "datalaere/php-filesystem",
-	"license": "MIT",
+	"version": "dev-master",
+	"type": "library",
 	"description": "Simple, useful classes for working with the server filesystem",
+	"homepage": "https://github.com/datalaere/php-filesystem",
+	"license": "MIT",
 	"require": {
 		"php": ">=5.5.0"
 	},
