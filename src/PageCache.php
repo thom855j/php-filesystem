@@ -3,9 +3,9 @@
  * Cache system
  */
 
-namespace Datalaere\PHPFilesystem;
+namespace PHP\Filesystem;
 
-class Cache
+class PageCache
 {
     public $url;
     protected $_dir;

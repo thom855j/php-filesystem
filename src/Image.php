@@ -1,23 +1,12 @@
 <?php
 
-namespace Datalaere\PHPFilesystem;
+namespace PHP\Filesystem;
 
 class Image
 {
-    // object instance
-    protected static $_instance = null;
 
     private $image;
     private $type;
-
-    public static function load()
-    {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new Image();
-        }
-
-        return self::$_instance;
-    }
 
     public function open($filename)
     {

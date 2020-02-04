@@ -1,6 +1,6 @@
 <?php
 
-namespace Datalaere\PHPFilesystem;
+namespace PHP\Filesystem;
 
 class File
 {

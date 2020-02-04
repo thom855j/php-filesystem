@@ -10,7 +10,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Datalaere\\PHPFilesystem\\": "src/"
+			"PHP\\Filesystem\\": "src/"
 		}
 	}
 }
