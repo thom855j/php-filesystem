@@ -1,6 +1,9 @@
 <?php
+
+namespace PHP\Filesystem;
+
 /**
- * FileCache
+ * Cache
  *
  * http://github.com/inouet/file-cache/
  *
@@ -9,11 +12,9 @@
  * License
  *   This software is released under the MIT License, see LICENSE.txt.
  *
- * @package FileCache
+ * @package Cache
  * @author  Taiji Inoue <inudog@gmail.com>
  */
-
-namespace PHP\Filesystem;
 
 class Cache
 {
