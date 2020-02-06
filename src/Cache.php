@@ -13,7 +13,9 @@
  * @author  Taiji Inoue <inudog@gmail.com>
  */
 
-class FileCache
+namespace PHP\Filesystem;
+
+class Cache
 {
     
     /**
